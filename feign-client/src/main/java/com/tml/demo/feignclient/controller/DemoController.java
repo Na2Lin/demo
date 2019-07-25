@@ -1,30 +1,26 @@
-package com.tml.demo.eurekaclient.controller;
+package com.tml.demo.feignclient.controller;
 
-import org.springframework.beans.factory.annotation.Value;
+import com.tml.demo.feignclient.service.DemoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
-@RequestMapping(value = "/demo")
+@RequestMapping(value = "demo")
 public class DemoController {
-    @Value("${server.port}")
-    private int port;
+
+    @Autowired
+    DemoService demoService;
 
     @RequestMapping(method = RequestMethod.GET)
     public String hello(String name) {
-        return "hello " + name +", this is "+port;
+        return demoService.hello(name);
     }
-
 
     @RequestMapping(method = RequestMethod.POST)
     public String hello2(MultipartFile file) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("this is ")
-                .append(port)
-                .append(" file size is ")
-                .append(file.getSize());
-        return sb.toString();
+        return demoService.hello2(file);
     }
 }

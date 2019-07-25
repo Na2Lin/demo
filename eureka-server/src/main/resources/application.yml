@@ -1,11 +1,14 @@
 server:
-  port: 9222
+  port: 9223
 spring:
   application:
     name: eureka-server
 eureka:
   instance:
     hostname: localhost
+#    允许通过ip相互注册eureka服务,默认位false
+    prefer-ip-address: true
   client:
     service-url:
-      defaultZone: http://${eureka.instance.hostname}:9223/eureka/
+      defaultZone: http://${eureka.instance.hostname}:9222/eureka/
+
